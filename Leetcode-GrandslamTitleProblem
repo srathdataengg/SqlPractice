@@ -1,1 +1,41 @@
+use sys;
+
+create table players
+(
+player_id integer,
+player_name Varchar(20)
+);
+
+INSERT INTO players values(1,'Nadal');
+INSERT INTO players values(2,'Federer');
+INSERT INTO players values(3,'Novak');
+
+select * from players ;
+
+drop table champions;
+
+create table champions
+(
+year integer,
+wimbledon integer,
+fr_open integer,
+us_open integer,
+au_open integer
+);
+
+insert into champions values(2018,1,1,1,1);
+insert into champions values(2019,1,1,2,2);
+insert into champions values(2020,1,1,2,2);
+
+select * from champions;
+
+select player_id,player_name,
+		sum(player_id =wimbledon) + sum(player_id =fr_open) + sum(player_id = us_open) + sum(player_id = au_open) as grand_slam_count
+from players 
+join champions 
+on player_id = wimbledon
+				OR  player_id = fr_open
+				OR  player_id = us_open
+				OR  player_id = au_open
+				group by player_id,player_name;
 
